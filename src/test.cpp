@@ -2,15 +2,15 @@
 
 #include <iostream>
 
-bit_ptr create()
+static bit_ptr create()
 {
 	auto root = std::make_shared<bit_block>("root");
 
-	root->set_value("model_name");
+	root->set_value("12342333model_name");
 
 	// create name
 	auto name = std::make_shared<bit_str>("name");
-	name->set_value("1234hello_world");
+	name->set_value("1234");
 
 	// create pos
 	auto pos = std::make_shared<bit_value<float, 3>>("pos");
@@ -25,10 +25,24 @@ bit_ptr create()
 	return root;
 }
 
-std::string test(std::string &&value)
+struct vector
 {
-	return std::forward<std::string>(value);
-}
+	float x_;
+	float y_;
+	float z_;
+};
+
+template <>
+struct bit_type<vector>
+{
+	static vector convert_from(bit* b, size_t index)
+	{
+		vector v;
+		b->copy_to(&v.x_, 3);
+
+		return v;
+	}
+};
 
 int main(int argc, const char** argv)
 {
@@ -39,13 +53,17 @@ int main(int argc, const char** argv)
 
 	auto root = create();
 
+	auto iv = root->as_int();
+
+	auto rt = root->as_tuple<int, float>();
+
 	float name = root->read<float>("name");
 
-	auto result = test("hello");
+	auto pos_value = root->read_tuple<float, float, float>("pos");
 
-	std::cout << result << std::endl;
+	auto pos_block = root->read("pos");
 
-	//auto pos_block = root->read("pos");
+	auto pos = pos_block->as_tuple<float, float, float>();
 
-	//auto pos = pos_block->as_tuple<float, float, float>();
+	auto new_pos = root->read<vector>("pos");
 }

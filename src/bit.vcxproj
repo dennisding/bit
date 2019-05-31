@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bit.hpp" />
+    <ClInclude Include="bit_parser.hpp" />
     <ClInclude Include="bit_types.hpp" />
   </ItemGroup>
   <ItemGroup>

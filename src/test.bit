@@ -1,0 +1,10 @@
+
+
+model{str}<list> = model {xxx}<code==>name
+s1{str} = str one
+s2	ttt{str} = "some string"
+s3{str} = "some multiline str
+code goes here
+"
+
+"special {} <>name \0!!end" {int} = 1024

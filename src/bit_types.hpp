@@ -22,9 +22,9 @@ struct bit_type<int>
 		return std::stoi(value);
 	}
 
-	static int convert_from(bit* b)
+	static int convert_from(bit* b, size_t index)
 	{
-		return b->as_int();
+		return b->as_int(index);
 	}
 };
 
@@ -37,19 +37,14 @@ struct bit_type<float>
 		return (float)v;
 	}
 
-	static float convert_from(std::string&& value)
-	{
-		return std::stof(value);
-	}
-
 	static float convert_from(std::string& value)
 	{
 		return std::stof(value);
 	}
 
-	static float convert_from(bit* b)
+	static float convert_from(bit* b, size_t index)
 	{
-		return b->as_float();
+		return b->as_float(index);
 	}
 };
 
@@ -62,17 +57,12 @@ struct bit_type<std::string>
 		return std::to_string(value);
 	}
 
-	static std::string convert_from(std::string &&value)
-	{
-		return std::move(value);
-	}
-
 	static std::string convert_from(std::string& value)
 	{
 		return value;
 	}
 
-	static std::string convert_from(bit* b)
+	static std::string convert_from(bit* b, size_t index)
 	{
 		return b->as_string();
 	}
